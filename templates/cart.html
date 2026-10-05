@@ -1,18 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cart</title>
+    <title>Shopping Cart</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style1.css') }}">
 </head>
 <body>
 
-<h1>Shopping Cart</h1>
+<div class="cart-container">
 
-{% for item in cart_items %}
-    <h3>{{ item.name }}</h3>
-    <p>₹{{ item.price }}</p>
-{% endfor %}
+    <h1>🛒 Shopping Cart</h1>
 
-<a href="/">Back</a>
+    {% if cart_items %}
+
+        {% for item in cart_items %}
+
+        <div class="cart-item">
+
+            <h3>{{ item.name }}</h3>
+
+            <p>₹{{ item.price }}</p>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <h2 class="empty-cart">
+            Your Cart Is Empty
+        </h2>
+
+    {% endif %}
+
+    <a href="/" class="back-btn">
+        Back To Home
+    </a>
+
+</div>
 
 </body>
 </html>
