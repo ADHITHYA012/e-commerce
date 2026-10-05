@@ -4,9 +4,30 @@ app = Flask(__name__)
 app.secret_key = "secret123"
 
 products = [
-    {"id": 1, "name": "Laptop", "price": 55000},
-    {"id": 2, "name": "Smart Watch", "price": 2000},
-    {"id": 3, "name": "Headphones", "price": 1500}
+    {
+        "id": 1,
+        "name": "Laptop",
+        "price": 55000,
+        "image": "images/laptop.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Smart Watch",
+        "price": 2000,
+        "image": "images/watch.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Headphones",
+        "price": 1500,
+        "image": "images/headphone.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Bluetooth Speaker",
+        "price": 2500,
+        "image": "images/speaker.jpg"
+    }
 ]
 
 @app.route("/")
