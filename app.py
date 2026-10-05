@@ -7,11 +7,13 @@ products = [
     {"name": "Smart Watch", "price": 2000},
     {"name": "Headphones", "price": 1500},
     {"name": "Bluetooth Speaker", "price": 2500},
-    {"name": "Mobile Phone", "price": 25000}
+    {"name": "Mobile Phone", "price": 25000},
+    {"name": "Gaming Mouse", "price": 1200}
 ]
 
 @app.route("/")
 def home():
+
     search = request.args.get("search", "")
 
     if search:
@@ -23,7 +25,7 @@ def home():
         filtered_products = products
 
     return render_template(
-        "index.html",
+        "index1.html",
         products=filtered_products,
         search=search
     )
