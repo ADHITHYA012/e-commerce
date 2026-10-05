@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 
-app = Flask(__name__)
+app1 = Flask(__name__)
 
 products = [
     {"name": "Laptop", "price": 55000},
