@@ -6,7 +6,7 @@
     <title>ShopEasy</title>
 
     <link rel="stylesheet"
-    href="{{ url_for('static', filename='style1.css') }}">
+          href="{{ url_for('static', filename='style1.css') }}">
 </head>
 <body>
 
@@ -19,10 +19,10 @@
     <form method="GET">
 
         <input
-        type="text"
-        name="search"
-        placeholder="Search products..."
-        value="{{ search }}">
+            type="text"
+            name="search"
+            placeholder="Search products..."
+            value="{{ search }}">
 
         <button type="submit">
             Search
@@ -30,21 +30,20 @@
 
     </form>
 
-    <div class="cart">
-        🛒 Cart:
-        <span id="cart-count">0</span>
-    </div>
+    <a href="/cart">
+        <button>
+            View Cart
+        </button>
+    </a>
 
 </header>
 
 <section class="hero">
 
-    <h1>
-        Welcome to ShopEasy
-    </h1>
+    <h1>Welcome to ShopEasy</h1>
 
     <p>
-        Find Your Favorite Products
+        Best Online Shopping Store
     </p>
 
 </section>
@@ -69,15 +68,17 @@
 
     <div class="buttons">
 
-        <button
-        onclick="addToCart('{{ product.name }}')">
-            Add To Cart
-        </button>
+        <a href="/add_to_cart/{{ product.id }}">
+            <button>
+                Add To Cart
+            </button>
+        </a>
 
-        <button
-        onclick="buyNow('{{ product.name }}')">
-            Buy Now
-        </button>
+        <a href="/buy/{{ product.id }}">
+            <button>
+                Buy Now
+            </button>
+        </a>
 
     </div>
 
@@ -86,10 +87,6 @@
 {% endfor %}
 
 </div>
-
-<script
-src="{{ url_for('static', filename='script1.js') }}">
-</script>
 
 </body>
 </html>
