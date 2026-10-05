@@ -1,189 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ShopEasy</title>
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-}
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style1.css') }}">
 
-body{
-    background:#eaeded;
-}
-
-.navbar{
-    background:#131921;
-    color:white;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 30px;
-}
-
-.logo{
-    font-size:28px;
-    font-weight:bold;
-    color:#ff9900;
-}
-
-.search{
-    width:50%;
-    padding:10px;
-    border:none;
-    border-radius:5px;
-}
-
-.cart{
-    font-size:18px;
-}
-
-.hero{
-    background:url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1600');
-    background-size:cover;
-    background-position:center;
-    height:350px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:white;
-    font-size:40px;
-    font-weight:bold;
-}
-
-.products{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    padding:30px;
-}
-
-.card{
-    background:white;
-    border-radius:10px;
-    overflow:hidden;
-    box-shadow:0 2px 10px rgba(0,0,0,0.15);
-    transition:.3s;
-}
-
-.card:hover{
-    transform:translateY(-5px);
-}
-
-.card img{
-    width:100%;
-    height:250px;
-    object-fit:cover;
-}
-
-.info{
-    padding:15px;
-    text-align:center;
-}
-
-.price{
-    color:#B12704;
-    font-size:22px;
-    font-weight:bold;
-    margin:10px 0;
-}
-
-button{
-    background:#ffd814;
-    border:none;
-    padding:10px 20px;
-    border-radius:20px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-button:hover{
-    background:#f7ca00;
-}
-
-footer{
-    background:#131921;
-    color:white;
-    text-align:center;
-    padding:20px;
-    margin-top:20px;
-}
-</style>
 </head>
 
 <body>
 
-<nav class="navbar">
-    <div class="logo">ShopEasy</div>
+<header>
 
-    <input type="text" class="search"
-           placeholder="Search products...">
+    <div class="logo">
+        ShopEasy
+    </div>
+
+    <form method="GET">
+
+        <input
+        type="text"
+        id="searchBox"
+        name="search"
+        placeholder="Search products..."
+        value="{{ search }}">
+
+        <button type="submit">
+            Search
+        </button>
+
+    </form>
 
     <div class="cart">
-        🛒 Cart (<span id="count">0</span>)
+        🛒 Cart:
+        <span id="cart-count">0</span>
     </div>
-</nav>
+
+</header>
 
 <section class="hero">
-    Welcome to ShopEasy
-</section>
 
-<section class="products">
+    <h1>
+        Welcome to ShopEasy
+    </h1>
 
-    <div class="card">
-        <img src="https://picsum.photos/300/250?1">
-        <div class="info">
-            <h3>Smart Watch</h3>
-            <div class="price">₹1999</div>
-            <button onclick="addCart()">Add to Cart</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://picsum.photos/300/250?2">
-        <div class="info">
-            <h3>Headphones</h3>
-            <div class="price">₹1499</div>
-            <button onclick="addCart()">Add to Cart</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://picsum.photos/300/250?3">
-        <div class="info">
-            <h3>Bluetooth Speaker</h3>
-            <div class="price">₹2499</div>
-            <button onclick="addCart()">Add to Cart</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://picsum.photos/300/250?4">
-        <div class="info">
-            <h3>Laptop</h3>
-            <div class="price">₹54999</div>
-            <button onclick="addCart()">Add to Cart</button>
-        </div>
-    </div>
+    <p>
+        Best Online Shopping Experience
+    </p>
 
 </section>
 
-<footer>
-    © 2026 ShopEasy. All Rights Reserved.
-</footer>
+<div class="products">
 
-<script>
-let count = 0;
+{% for product in products %}
 
-function addCart(){
-    count++;
-    document.getElementById("count").innerText = count;
-}
+<div class="card">
+
+    <img
+    src="https://picsum.photos/300/250?random={{ loop.index }}"
+    alt="Product">
+
+    <h2>
+        {{ product.name }}
+    </h2>
+
+    <p class="price">
+        ₹{{ product.price }}
+    </p>
+
+    <button
+    onclick="addToCart('{{ product.name }}')">
+
+        Add To Cart
+
+    </button>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<script
+src="{{ url_for('static', filename='script1.js') }}">
 </script>
 
 </body>
