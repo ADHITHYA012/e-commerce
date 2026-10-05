@@ -1,17 +1,17 @@
 let cartCount = 0;
 
-function addToCart(productName){
+function addToCart(productName) {
 
     cartCount++;
 
-    document.getElementById(
-        "cart-count"
-    ).innerText = cartCount;
+    document.getElementById("cart-count").innerText = cartCount;
 
-    alert(
-        productName + " added to cart!"
-    );
+    alert(productName + " added to cart!");
 }
-function buyNow() {
-    alert("Order placed successfully!");
+
+function buyNow(productName) {
+
+    alert("Buying: " + productName);
+
+    window.location.href = "/success";
 }
