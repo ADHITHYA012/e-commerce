@@ -12,3 +12,6 @@ function addToCart(productName){
         productName + " added to cart!"
     );
 }
+function buyNow() {
+    alert("Order placed successfully!");
+}
