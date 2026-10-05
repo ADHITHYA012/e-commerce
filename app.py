@@ -8,13 +8,7 @@ products = [
     {"name": "Headphones", "price": 1500},
     {"name": "Bluetooth Speaker", "price": 2500},
     {"name": "Mobile Phone", "price": 25000},
-    {"name": "Gaming Mouse", "price": 1200},
-    {"name": "Keyboard", "price": 999},
-    {"name": "Monitor", "price": 12000},
-    {"name": "Printer", "price": 8000},
-    {"name": "Power Bank", "price": 1500},
-    {"name": "Camera", "price": 45000},
-    {"name": "Tablet", "price": 18000}
+    {"name": "Gaming Mouse", "price": 1200}
 ]
 
 @app.route("/")
@@ -35,6 +29,14 @@ def home():
         products=filtered_products,
         search=search
     )
+
+@app.route("/success")
+def success():
+    return """
+    <h1>✅ Order Placed Successfully!</h1>
+    <br>
+    <a href="/">Back To Home</a>
+    """
 
 if __name__ == "__main__":
     app.run(debug=True)
