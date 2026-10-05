@@ -110,3 +110,63 @@ header button{
 .cart{
     font-size:18px;
 }
+.cart-container,
+.success-container{
+    max-width:800px;
+    margin:50px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.15);
+    text-align:center;
+}
+
+.cart-container h1,
+.success-container h1{
+    color:#232f3e;
+    margin-bottom:20px;
+}
+
+.cart-item{
+    padding:15px;
+    margin:15px 0;
+    border:1px solid #ddd;
+    border-radius:10px;
+    background:#fafafa;
+}
+
+.cart-item h3{
+    margin-bottom:10px;
+}
+
+.cart-item p{
+    color:#B12704;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.empty-cart{
+    color:red;
+    font-size:22px;
+    margin:20px 0;
+}
+
+.back-btn{
+    display:inline-block;
+    text-decoration:none;
+    background:#ff9900;
+    color:white;
+    padding:12px 25px;
+    border-radius:8px;
+    margin-top:20px;
+    font-weight:bold;
+}
+
+.back-btn:hover{
+    background:#e68a00;
+}
+
+.success-icon{
+    font-size:70px;
+    margin-bottom:15px;
+}
