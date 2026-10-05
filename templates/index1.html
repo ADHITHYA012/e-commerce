@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopEasy</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>ShopEasy</title>
-
-<link rel="stylesheet"
-href="{{ url_for('static', filename='style1.css') }}">
-
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style1.css') }}">
 </head>
-
 <body>
 
 <header>
@@ -24,7 +20,6 @@ href="{{ url_for('static', filename='style1.css') }}">
 
         <input
         type="text"
-        id="searchBox"
         name="search"
         placeholder="Search products..."
         value="{{ search }}">
@@ -49,7 +44,7 @@ href="{{ url_for('static', filename='style1.css') }}">
     </h1>
 
     <p>
-        Best Online Shopping Experience
+        Find Your Favorite Products
     </p>
 
 </section>
@@ -72,15 +67,19 @@ href="{{ url_for('static', filename='style1.css') }}">
         ₹{{ product.price }}
     </p>
 
-    <button
-    onclick="addToCart('{{ product.name }}')">
+    <div class="buttons">
 
-        Add To Cart
-        <button onclick="buyNow()">
-    Buy Now
-</button>
+        <button
+        onclick="addToCart('{{ product.name }}')">
+            Add To Cart
+        </button>
 
-    </button>
+        <button
+        onclick="buyNow('{{ product.name }}')">
+            Buy Now
+        </button>
+
+    </div>
 
 </div>
 
