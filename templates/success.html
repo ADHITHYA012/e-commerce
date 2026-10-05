@@ -2,16 +2,31 @@
 <html>
 <head>
     <title>Order Success</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style1.css') }}">
 </head>
 <body>
 
-<h1>✅ Order Placed Successfully</h1>
+<div class="success-container">
 
-<h2>{{ product.name }}</h2>
+    <div class="success-icon">
+        ✅
+    </div>
 
-<p>₹{{ product.price }}</p>
+    <h1>Order Placed Successfully!</h1>
 
-<a href="/">Back To Home</a>
+    <h2>{{ product.name }}</h2>
+
+    <p class="price">
+        ₹{{ product.price }}
+    </p>
+
+    <a href="/" class="back-btn">
+        Continue Shopping
+    </a>
+
+</div>
 
 </body>
 </html>
