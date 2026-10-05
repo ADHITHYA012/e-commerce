@@ -1,42 +1,60 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, session
 
 app = Flask(__name__)
+app.secret_key = "secret123"
 
 products = [
-    {"name": "Laptop", "price": 55000},
-    {"name": "Smart Watch", "price": 2000},
-    {"name": "Headphones", "price": 1500},
-    {"name": "Bluetooth Speaker", "price": 2500},
-    {"name": "Mobile Phone", "price": 25000},
-    {"name": "Gaming Mouse", "price": 1200}
+    {"id": 1, "name": "Laptop", "price": 55000},
+    {"id": 2, "name": "Smart Watch", "price": 2000},
+    {"id": 3, "name": "Headphones", "price": 1500}
 ]
 
 @app.route("/")
 def home():
+    return render_template("index1.html", products=products)
 
-    search = request.args.get("search", "")
+@app.route("/add_to_cart/<int:id>")
+def add_to_cart(id):
 
-    if search:
-        filtered_products = [
-            p for p in products
-            if search.lower() in p["name"].lower()
-        ]
-    else:
-        filtered_products = products
+    if "cart" not in session:
+        session["cart"] = []
+
+    cart = session["cart"]
+    cart.append(id)
+
+    session["cart"] = cart
+
+    return redirect("/")
+
+@app.route("/cart")
+def cart():
+
+    cart_items = []
+
+    if "cart" in session:
+        for item_id in session["cart"]:
+            for p in products:
+                if p["id"] == item_id:
+                    cart_items.append(p)
 
     return render_template(
-        "index1.html",
-        products=filtered_products,
-        search=search
+        "cart.html",
+        cart_items=cart_items
     )
 
-@app.route("/success")
-def success():
-    return """
-    <h1>✅ Order Placed Successfully!</h1>
-    <br>
-    <a href="/">Back To Home</a>
-    """
+@app.route("/buy/<int:id>")
+def buy(id):
+
+    product = None
+
+    for p in products:
+        if p["id"] == id:
+            product = p
+
+    return render_template(
+        "success.html",
+        product=product
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)
