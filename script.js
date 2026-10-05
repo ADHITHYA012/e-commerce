@@ -1,15 +1,14 @@
-let total = 0;
+let cartCount = 0;
 
-function addToCart(product, price) {
+function addToCart(productName){
 
-    let cartItems = document.getElementById("cart-items");
+    cartCount++;
 
-    let li = document.createElement("li");
-    li.textContent = `${product} - ₹${price}`;
+    document.getElementById(
+        "cart-count"
+    ).innerText = cartCount;
 
-    cartItems.appendChild(li);
-
-    total += price;
-
-    document.getElementById("total").textContent = total;
+    alert(
+        productName + " added to cart!"
+    );
 }
