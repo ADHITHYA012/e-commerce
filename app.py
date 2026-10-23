@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import os
 
-app = Flask(**name**)
+app = Flask(name)
 app.secret_key = os.environ.get("SECRET_KEY", "shopeasy-demo-key-2026")
 
 products = [
@@ -16,8 +16,8 @@ products = [
 
 @app.route("/")
 def home():
-search = request.args.get("search", "").strip()
-category = request.args.get("category", "").strip()
+    search = request.args.get("search", "").strip()
+    category = request.args.get("category", "").strip()
 
 ```
 filtered_products = products.copy()
