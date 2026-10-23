@@ -1,32 +1,61 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Order Success</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Confirmation | ShopEasy</title>
 
     <link rel="stylesheet"
-    href="{{ url_for('static', filename='style1.css') }}">
+          href="{{ url_for('static', filename='style1.css') }}">
 </head>
+
 <body>
 
-<div class="success-container">
+<header>
+    <a href="/" class="logo">ShopEasy</a>
+</header>
 
-    <div class="success-icon">
-        ✅
+<main class="success-container">
+
+    <div class="success-icon">✓</div>
+
+    <h1>Order Confirmation</h1>
+
+    <p>You selected the following product:</p>
+
+    <div class="cart-item">
+
+        <img
+            src="{{ url_for('static', filename=product.image) }}"
+            alt="{{ product.name }}">
+
+        <div class="cart-item-details">
+
+            <h2>{{ product.name }}</h2>
+
+            <p>Quantity: {{ quantity }}</p>
+
+            <p>
+                Total: ₹{{ "{:,.0f}".format(total) }}
+            </p>
+
+        </div>
+
     </div>
 
-    <h1>Order Placed Successfully!</h1>
-
-    <h2>{{ product.name }}</h2>
-
-    <p class="price">
-        ₹{{ product.price }}
+    <p class="demo-notice">
+        This is a demo order confirmation. No payment has been processed.
     </p>
 
-    <a href="/" class="back-btn">
+    <a href="/" class="shop-now">
         Continue Shopping
     </a>
 
-</div>
+</main>
 
 </body>
 </html>
+```
