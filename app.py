@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import os
 
-app = Flask(name)
+app = Flask(**name**)
 app.secret_key = os.environ.get("SECRET_KEY", "shopeasy-demo-key-2026")
 
 products = [
@@ -16,10 +16,10 @@ products = [
 
 @app.route("/")
 def home():
-    search = request.args.get("search", "").strip()
-    category = request.args.get("category", "").strip()
+search = request.args.get("search", "").strip()
+category = request.args.get("category", "").strip()
 
-
+```
 filtered_products = products.copy()
 
 if search:
@@ -35,8 +35,8 @@ if category:
         if p["category"].lower() == category.lower()
     ]
 
-cart = session.get("cart", {})
-cart_count = sum(cart.values())
+cart_data = session.get("cart", {})
+cart_count = sum(cart_data.values())
 categories = sorted(set(p["category"] for p in products))
 
 return render_template(
@@ -47,25 +47,28 @@ return render_template(
     categories=categories,
     cart_count=cart_count
 )
-
+```
 
 @app.route("/add_to_cart/[int:product_id](int:product_id)", methods=["POST"])
 def add_to_cart(product_id):
-product = next((p for p in products if p["id"] == product_id), None)
+product = next(
+(p for p in products if p["id"] == product_id),
+None
+)
 
-
+```
 if product is None:
     return "Product not found", 404
 
-cart = session.get("cart", {})
+cart_data = session.get("cart", {})
 key = str(product_id)
-cart[key] = cart.get(key, 0) + 1
+cart_data[key] = cart_data.get(key, 0) + 1
 
-session["cart"] = cart
+session["cart"] = cart_data
 session.modified = True
 
 return redirect(url_for("cart"))
-
+```
 
 @app.route("/cart")
 def cart():
@@ -73,7 +76,7 @@ cart_data = session.get("cart", {})
 cart_items = []
 total = 0
 
-
+```
 for product in products:
     quantity = cart_data.get(str(product["id"]), 0)
 
@@ -81,6 +84,7 @@ for product in products:
         item = product.copy()
         item["quantity"] = quantity
         item["subtotal"] = product["price"] * quantity
+
         cart_items.append(item)
         total += item["subtotal"]
 
@@ -92,24 +96,28 @@ return render_template(
     total=total,
     cart_count=cart_count
 )
-
+```
 
 @app.route("/remove_from_cart/[int:product_id](int:product_id)", methods=["POST"])
 def remove_from_cart(product_id):
 cart_data = session.get("cart", {})
 cart_data.pop(str(product_id), None)
 
+```
 session["cart"] = cart_data
 session.modified = True
 
 return redirect(url_for("cart"))
-
+```
 
 @app.route("/buy/[int:product_id](int:product_id)", methods=["POST"])
 def buy(product_id):
-product = next((p for p in products if p["id"] == product_id), None)
+product = next(
+(p for p in products if p["id"] == product_id),
+None
+)
 
-
+```
 if product is None:
     return "Product not found", 404
 
@@ -119,13 +127,13 @@ return render_template(
     quantity=1,
     total=product["price"]
 )
-
+```
 
 @app.route("/checkout", methods=["POST"])
 def checkout():
 cart_data = session.get("cart", {})
 
-
+```
 if not cart_data:
     return redirect(url_for("cart"))
 
@@ -139,6 +147,7 @@ for product in products:
         item = product.copy()
         item["quantity"] = quantity
         item["subtotal"] = product["price"] * quantity
+
         cart_items.append(item)
         total += item["subtotal"]
 
@@ -150,7 +159,7 @@ return render_template(
     cart_items=cart_items,
     total=total
 )
-
+```
 
 if **name** == "**main**":
 app.run(debug=True)
