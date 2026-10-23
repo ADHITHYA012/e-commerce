@@ -1,11 +1,11 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>ShopEasy | Online Shopping</title>
+    <title>ShopEasy - Online Shopping</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style1.css') }}">
@@ -35,7 +35,7 @@
         }
 
         .logo {
-            font-size: 27px;
+            font-size: 28px;
             font-weight: bold;
             color: #ffb703;
         }
@@ -50,62 +50,62 @@
             width: 100%;
             padding: 12px;
             border: none;
-            border-radius: 5px 0 0 5px;
             outline: none;
+            border-radius: 5px 0 0 5px;
         }
 
         .search-form button {
             padding: 12px 18px;
-            background: #ffb703;
             border: none;
+            background: #ffb703;
             cursor: pointer;
-            border-radius: 0 5px 5px 0;
             font-weight: bold;
+            border-radius: 0 5px 5px 0;
         }
 
         .cart-link {
             color: white;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 10px 15px;
             background: #263447;
+            padding: 12px 16px;
+            text-decoration: none;
             border-radius: 5px;
+            font-weight: bold;
         }
 
         .hero {
             background: linear-gradient(120deg, #243b55, #141e30);
             color: white;
-            padding: 55px 20px;
             text-align: center;
+            padding: 60px 20px;
         }
 
         .hero h1 {
-            font-size: 36px;
-            margin-bottom: 12px;
+            font-size: 38px;
+            margin-bottom: 15px;
         }
 
         .hero p {
-            font-size: 17px;
+            font-size: 18px;
             color: #e0e0e0;
         }
 
         .container {
             max-width: 1250px;
-            margin: 30px auto;
+            margin: 35px auto;
             padding: 0 20px;
         }
 
         .filter-section {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             gap: 15px;
             flex-wrap: wrap;
             margin-bottom: 25px;
         }
 
         .filter-section h2 {
-            font-size: 25px;
+            font-size: 27px;
         }
 
         .filter-section select {
@@ -117,7 +117,10 @@
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(220px, 1fr)
+            );
             gap: 22px;
         }
 
@@ -148,8 +151,8 @@
 
         .category {
             color: #777;
-            font-size: 13px;
-            margin-bottom: 10px;
+            font-size: 14px;
+            margin-bottom: 12px;
         }
 
         .price {
@@ -165,12 +168,12 @@
 
         .btn {
             width: 100%;
-            padding: 11px;
+            padding: 12px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
             font-weight: bold;
+            font-size: 14px;
         }
 
         .add-btn {
@@ -188,19 +191,20 @@
         }
 
         .empty-message {
+            grid-column: 1 / -1;
             text-align: center;
-            padding: 40px 10px;
+            padding: 45px 10px;
             font-size: 18px;
             color: #777;
-            grid-column: 1 / -1;
         }
 
         footer {
             background: #131921;
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: 22px;
             margin-top: 45px;
+            line-height: 1.8;
         }
 
         @media (max-width: 600px) {
@@ -258,18 +262,19 @@
             <button type="submit">Search</button>
         </form>
 
+        <!-- FIXED: cart route name -->
         <a href="{{ url_for('cart') }}" class="cart-link">
             🛒 View Cart ({{ cart_count | default(0) }})
         </a>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Welcome Banner -->
     <section class="hero">
         <h1>Welcome to ShopEasy!</h1>
         <p>Discover amazing products at great prices.</p>
     </section>
 
-    <!-- Products -->
+    <!-- Product Section -->
     <main class="container">
 
         <div class="filter-section">
@@ -328,6 +333,7 @@
                     ₹{{ "{:,.0f}".format(product.price) }}
                 </p>
 
+                <!-- Add to Cart -->
                 <form
                     class="add-to-cart-form"
                     action="{{ url_for('add_to_cart', product_id=product.id) }}"
@@ -338,9 +344,10 @@
                     </button>
                 </form>
 
+                <!-- Buy Now -->
                 <form
                     class="buy-now-form"
-                    action="{{ url_for('buy_now', product_id=product.id) }}"
+                    action="{{ url_for('buy', product_id=product.id) }}"
                     method="POST"
                 >
                     <button type="submit" class="btn buy-btn">
@@ -374,4 +381,4 @@
 
 </body>
 </html>
-
+```
