@@ -16,10 +16,10 @@ products = [
 
 @app.route("/")
 def home():
-search = request.args.get("search", "").strip()
-category = request.args.get("category", "").strip()
+    search = request.args.get("search", "").strip()
+    category = request.args.get("category", "").strip()
 
-```
+
 filtered_products = products.copy()
 
 if search:
