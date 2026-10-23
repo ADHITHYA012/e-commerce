@@ -40,7 +40,7 @@ products = [
         "id": 5,
         "name": "Mobile Phone",
         "price": 25000,
-        "image": "images/mobile.jpg",
+        "image": "images/moblie.jpg",
         "category": "Mobiles"
     },
     {
