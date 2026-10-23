@@ -1,8 +1,11 @@
+
 from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
 app.secret_key = "shopeasy_secret_key_2026"
 
+
+# -------------------- PRODUCT LIST --------------------
 
 products = [
     {
@@ -57,6 +60,8 @@ products = [
 ]
 
 
+# -------------------- HOME PAGE --------------------
+
 @app.route("/")
 def home():
     search = request.args.get("search", "").strip()
@@ -66,21 +71,23 @@ def home():
 
     if search:
         filtered_products = [
-            p for p in filtered_products
-            if search.lower() in p["name"].lower()
-            or search.lower() in p["category"].lower()
+            product for product in filtered_products
+            if search.lower() in product["name"].lower()
+            or search.lower() in product["category"].lower()
         ]
 
     if category:
         filtered_products = [
-            p for p in filtered_products
-            if p["category"].lower() == category.lower()
+            product for product in filtered_products
+            if product["category"].lower() == category.lower()
         ]
 
     cart_data = session.get("cart", {})
     cart_count = sum(cart_data.values())
 
-    categories = sorted(set(p["category"] for p in products))
+    categories = sorted({
+        product["category"] for product in products
+    })
 
     return render_template(
         "index1.html",
@@ -91,6 +98,8 @@ def home():
         cart_count=cart_count
     )
 
+
+# -------------------- ADD TO CART --------------------
 
 @app.route("/add_to_cart/<int:product_id>", methods=["POST"])
 def add_to_cart(product_id):
@@ -112,6 +121,8 @@ def add_to_cart(product_id):
 
     return redirect(url_for("cart"))
 
+
+# -------------------- VIEW CART --------------------
 
 @app.route("/cart")
 def cart():
@@ -140,6 +151,8 @@ def cart():
     )
 
 
+# -------------------- REMOVE FROM CART --------------------
+
 @app.route("/remove_from_cart/<int:product_id>", methods=["POST"])
 def remove_from_cart(product_id):
     cart_data = session.get("cart", {})
@@ -152,6 +165,7 @@ def remove_from_cart(product_id):
     return redirect(url_for("cart"))
 
 
+# -------------------- BUY NOW --------------------
 
 @app.route("/buy/<int:product_id>", methods=["POST"])
 def buy(product_id):
@@ -163,10 +177,6 @@ def buy(product_id):
     if product is None:
         return "Product not found", 404
 
-    cart_items = [product.copy()]
-    cart_items[0]["quantity"] = 1
-    cart_items[0]["subtotal"] = product["price"]
-
     return render_template(
         "success.html",
         product=product,
@@ -174,6 +184,8 @@ def buy(product_id):
         total=product["price"]
     )
 
+
+# -------------------- CHECKOUT --------------------
 
 @app.route("/checkout", methods=["POST"])
 def checkout():
@@ -205,6 +217,8 @@ def checkout():
         total=total
     )
 
+
+# -------------------- RUN APPLICATION --------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
