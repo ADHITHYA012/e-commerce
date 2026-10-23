@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-import os
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY", "shopeasy-demo-key-2026")
+app.secret_key = "shopeasy_secret_key_2026"
+
 
 products = [
 {"id": 1, "name": "Laptop", "price": 55000, "image": "images/laptop.jpg", "category": "Electronics"},
