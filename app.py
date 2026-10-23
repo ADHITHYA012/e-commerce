@@ -158,7 +158,7 @@ return render_template(
     cart_items=cart_items,
     total=total
 )
-```
 
-if **name** == "**main**":
-app.run(debug=True)
+
+if __name__ == "__main__":
+    app.run(debug=True)
