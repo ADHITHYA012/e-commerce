@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import os
 
-app = Flask(name)
+app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "shopeasy-demo-key-2026")
 
 products = [
@@ -19,7 +19,7 @@ def home():
     search = request.args.get("search", "").strip()
     category = request.args.get("category", "").strip()
 
-```
+
 filtered_products = products.copy()
 
 if search:
@@ -47,16 +47,16 @@ return render_template(
     categories=categories,
     cart_count=cart_count
 )
-```
 
-@app.route("/add_to_cart/[int:product_id](int:product_id)", methods=["POST"])
+
+@app.route("/add_to_cart/<int:product_id>", methods=["POST"])
 def add_to_cart(product_id):
-product = next(
-(p for p in products if p["id"] == product_id),
-None
-)
+    product = next(
+    (p for p in products if p["id"] == product_id),
+    None
+    )
 
-```
+
 if product is None:
     return "Product not found", 404
 
@@ -68,15 +68,15 @@ session["cart"] = cart_data
 session.modified = True
 
 return redirect(url_for("cart"))
-```
+
 
 @app.route("/cart")
 def cart():
-cart_data = session.get("cart", {})
-cart_items = []
-total = 0
+    cart_data = session.get("cart", {})
+    cart_items = []
+    total = 0
 
-```
+
 for product in products:
     quantity = cart_data.get(str(product["id"]), 0)
 
@@ -96,28 +96,27 @@ return render_template(
     total=total,
     cart_count=cart_count
 )
-```
 
-@app.route("/remove_from_cart/[int:product_id](int:product_id)", methods=["POST"])
+@app.route("/buy/<int:product_id>", methods=["POST"])
 def remove_from_cart(product_id):
-cart_data = session.get("cart", {})
-cart_data.pop(str(product_id), None)
+      cart_data = session.get("cart", {})
+      cart_data.pop(str(product_id), None)
 
-```
+
 session["cart"] = cart_data
 session.modified = True
 
 return redirect(url_for("cart"))
-```
+
 
 @app.route("/buy/[int:product_id](int:product_id)", methods=["POST"])
 def buy(product_id):
-product = next(
-(p for p in products if p["id"] == product_id),
-None
-)
+    product = next(
+    (p for p in products if p["id"] == product_id),
+    None
+    )
 
-```
+
 if product is None:
     return "Product not found", 404
 
@@ -127,13 +126,13 @@ return render_template(
     quantity=1,
     total=product["price"]
 )
-```
+
 
 @app.route("/checkout", methods=["POST"])
 def checkout():
-cart_data = session.get("cart", {})
+    cart_data = session.get("cart", {})
 
-```
+
 if not cart_data:
     return redirect(url_for("cart"))
 
