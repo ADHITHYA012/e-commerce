@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import os
 
-app = Flask(**name**)
+app = Flask(name)
 app.secret_key = os.environ.get("SECRET_KEY", "shopeasy-demo-key-2026")
 
 products = [
