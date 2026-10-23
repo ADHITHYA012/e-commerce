@@ -109,23 +109,7 @@ session.modified = True
 return redirect(url_for("cart"))
 
 
-@app.route("/buy/[int:product_id](int:product_id)", methods=["POST"])
-def buy(product_id):
-    product = next(
-    (p for p in products if p["id"] == product_id),
-    None
-    )
 
-
-if product is None:
-    return "Product not found", 404
-
-return render_template(
-    "success.html",
-    product=product,
-    quantity=1,
-    total=product["price"]
-)
 
 
 @app.route("/checkout", methods=["POST"])
